@@ -357,7 +357,7 @@ function addProductToCart() {
     cart.lines.push(nyLina);
   }
 
-  console.log('Vöru bætt við');
+  console.log('Vöru bætt við körfu: ');
   
   /* Til að athuga hvort vara sé til í `cart` þarf að nota `cart.lines.find` */
 }
@@ -398,4 +398,27 @@ function showCart() {
  */
 function checkout() {
   /* Útfæra */
+  if (cart.lines.length === 0) {
+    console.log('Karfan er tóm');
+    return;
+  }
+
+  let nafn = prompt('Sláðu inn nafn: ')
+
+  if (!nafn) {
+    console.log('Nafn má ekki vera tómt');
+    return;
+  }
+
+  let heimilisfang = prompt('Sláðu inn heimilisfang: ')
+
+  if (!heimilisfang) {
+    console.log('Heimilisfang má ekki vera tómt');
+    return;
+  }
+
+  console.log(`Pöntun móttekin ${nafn}`);
+  console.log(`Vörur verða sendar á ${heimilisfang}`);
+  showCart()
+  return;
 }
