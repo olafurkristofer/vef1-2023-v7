@@ -121,12 +121,17 @@ const cart = {
  * const price = formatPrice(123000);
  * console.log(price); // Skrifar út `123.000 kr.`
  * @param {number} price Verð til að sníða.
- * @returns Verð sniðið með íslenskum krónu.
+ * @returns {string}Verð sniðið með íslenskum krónu.
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
  */
 function formatPrice(price) {
   /* Útfæra */
+  const snidad = Intl.NumberFormat('en-DE').format(price);
+  return `${snidad.toString()} Kr.`;
 }
+
+//const islKrona = Intl.NumberFormat('is',{style: 'currency',currency: 'ISK',});
+//this.price = islKrona.format(price);
 
 /**
  * Athuga hvort `num` sé heiltala á bilinu `[min, max]`.
@@ -137,6 +142,7 @@ function formatPrice(price) {
  */
 function validateInteger(num, min = 0, max = Infinity) {
   /* Útfæra */
+  return min <= num && num <= max;
 }
 
 /**
@@ -152,6 +158,14 @@ function validateInteger(num, min = 0, max = Infinity) {
  */
 function formatProduct(product, quantity = undefined) {
   /* Útfæra */
+  // @ts-ignore
+  const total = formatPrice(quantity * product.price);
+  if (quantity && quantity > 1) {
+    return `${product.title}-${quantity}x${formatPrice(product.price)} samtals ${total}`;
+  }else{
+    return `${product.title}-${formatPrice(product.price)}`;
+  }
+  
 }
 
 /**
